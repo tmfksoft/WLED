@@ -1,64 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta content='width=device-width' name='viewport'>
-		<meta name="theme-color" content="#222222">
-		<title>Welcome!</title>
-		<style>
-			body {
-				font-family: Verdana, Helvetica, sans-serif;
-				text-align: center;
-				background-color: #222;
-				margin: 0;
-				color: #fff;
-			}
-	
-			button {
-				outline: none;
-				cursor: pointer;
-				padding: 8px;
-				margin: 10px;
-				width: 230px;
-				text-transform: uppercase;
-				font-family: helvetica;
-				font-size: 19px;
-				background-color: #333;
-				color: white;
-				border: 0px solid white;
-				border-radius: 25px;
-			}
+<head>
+	<meta charset="utf-8">
+	<meta content='width=device-width' name='viewport'>
+	<meta name="theme-color" content="#0a2e14">
+	<title>Smart Plumbob</title>
+	<style>
+		* { box-sizing: border-box; margin: 0; padding: 0; }
 
-			img {
-				width: 950px;
-				max-width: 82%;
-				image-rendering: pixelated;
-				image-rendering: crisp-edges;
-				margin: 4vh 0 0 0;
-				animation: fi 1s;
-			}
-			
-			@keyframes fi {
-				from { opacity: 0; }
-				to   { opacity: 1; }
-			}
-	
-			.main {
-				animation: fi 1.5s .7s both;
-			}
-		</style>
-	</head>
-	<body>
-		<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG0AAAAfCAMAAADazLOuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABLUExURQAAAAB81gCU/zKq///mo7sWMN8bO+ZIYtZaAP9rAP+HMsCiG+TAIOnMS0KqNU7KPnLUZOrq6v///4CAgGhoaL+/v6CgoExMTAAAAAlm4O8AAAAZdFJOU////////////////////////////////wABNAq3AAAACXBIWXMAAA7DAAAOwwHHb6hkAAACN0lEQVRIS73VjVLCMBAEYIr8CYKkrdj3f1J37zaXFCpTO+piaDgbPq9px9VQ0qyrvKj4q6m0Zr1h+M7xF1zRmnWzqV9/0d2jttGotO1uv9dUObwej5oqp7fzWVPl8n69aprzoOUUbbvdIbV3OLwitXc6vSG1d7m8I3feSEN0j2CeNbOY4MxigjOLCc4sZsTV2l1cCyy4wIILLLjAxtykltq2rbTU+qi01N5rXNO2leaFORoija2l5MM5a02ac9Ya16Sk5tgaPrUpjZub0BL6YqSxKwbH77XUUmSkJXSl8QtaMuyJhq5maL5nTKVpZC13VmtMpTFT2g4vJjTuGfMzzXftiUZnhdtgb1xofvypRon5TjNnxYN9zJo6K5ruSIzQtGuVZn0x91rKvdHBvm39E7SyZ4y06Gz8BDBFKzsXmhcwyfsGZ9VpbhoiCinaxPNmGWmWWrNU2jB0q6HvOhN1JUtCixQtp2g51ZVUXIPS2RMAD++T2nY/DrDjOMDO4wC7jmNYj3d73nrXug8Yt9uNB8xNU1cKNXWlUFNXCjV1pZhGTE83m2vWfYf/NGj4Bg1zu5JD3/MnH5ZWfLOksbmGWGjgXMN5/C2GXYGFFW9Nmtle6Xut0Gm+JsayCj8z0nhjGvYJzVf4aSzmNYsr+u7Q2JIdoX3YOQjOslmsW1jJ3120nE9gfo79hTaNdcsqVR610lvO47pllae9ReZ805zKo2a3iaY5c75pTmVCA6dJ5H7N0sr/asPwBehb7ifEhusRAAAAAElFTkSuQmCC">
-		<div class="main">
-			<h1>Welcome to WLED!</h1>
-			<h3>A versatile tool for controlling LEDs</h3>
-			<h4>Find out more at wled.me</h4>
-			<b>Next steps:</b><br><br>
-			Connect to your local WiFi here!<br>
-			<button onclick="window.location.href='./settings/wifi'">WiFi settings</button><br>
-			<i>Just trying this out in AP mode?</i><br>
-			<button onclick="window.location.href='./?sliders'">To the controls!</button><br>
-		</div>
-	</body>
+		body {
+			font-family: "Trebuchet MS", Verdana, sans-serif;
+			background: radial-gradient(ellipse at top, #0d3b1e 0%, #071a0d 100%);
+			min-height: 100vh;
+			color: #d4f5dd;
+			text-align: center;
+		}
+
+		/* ── Plumbob ── */
+		.plumbob-wrap {
+			margin: 32px auto 8px;
+			animation: bob 3s ease-in-out infinite;
+		}
+		.plumbob-wrap svg {
+			width: 90px;
+			filter: drop-shadow(0 0 18px #00ff6688);
+		}
+		@keyframes bob {
+			0%,100% { transform: translateY(0);   filter: drop-shadow(0 0 18px #00ff6688); }
+			50%      { transform: translateY(-8px); filter: drop-shadow(0 0 28px #00ff88bb); }
+		}
+
+		/* ── Heading ── */
+		h1 {
+			font-size: 1.9em;
+			color: #5dff8f;
+			text-shadow: 0 0 12px #00ff6655;
+			margin: 12px 0 4px;
+			letter-spacing: 1px;
+		}
+		h2 {
+			font-size: 0.95em;
+			color: #7fbf8a;
+			font-weight: normal;
+			margin-bottom: 24px;
+		}
+
+		/* ── Panel ── */
+		.panel {
+			background: linear-gradient(160deg, #0f2d18 0%, #0a1f10 100%);
+			border: 1px solid #2a6b3a;
+			border-radius: 16px;
+			padding: 20px 22px;
+			margin: 0 auto 18px;
+			max-width: 480px;
+			width: 92%;
+			box-shadow: 0 4px 24px #00000066, inset 0 1px 0 #3a8b4a44;
+		}
+		.panel-title {
+			font-size: 0.75em;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: #4caf6a;
+			margin-bottom: 14px;
+			border-bottom: 1px solid #1e4d28;
+			padding-bottom: 8px;
+		}
+
+		/* ── Buttons ── */
+		.btn {
+			display: inline-block;
+			width: 100%;
+			padding: 11px 16px;
+			margin: 6px 0;
+			font-family: inherit;
+			font-size: 1em;
+			font-weight: bold;
+			color: #d4f5dd;
+			background: linear-gradient(180deg, #1e6b33 0%, #144d24 100%);
+			border: 1px solid #3a9b50;
+			border-radius: 12px;
+			cursor: pointer;
+			text-decoration: none;
+			transition: background 0.15s, box-shadow 0.15s;
+			box-shadow: 0 2px 8px #00000044;
+		}
+		.btn:hover {
+			background: linear-gradient(180deg, #288540 0%, #1a6030 100%);
+			box-shadow: 0 0 14px #00ff6633;
+		}
+		.btn.secondary {
+			background: linear-gradient(180deg, #163824 0%, #0e2418 100%);
+			border-color: #2a6b3a;
+			font-weight: normal;
+		}
+		.btn.secondary:hover {
+			background: linear-gradient(180deg, #1e4d2c 0%, #132016 100%);
+		}
+
+		/* ── Button reference table ── */
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 0.85em;
+			text-align: left;
+		}
+		th {
+			color: #4caf6a;
+			font-weight: bold;
+			padding: 4px 6px 8px;
+			border-bottom: 1px solid #1e4d28;
+		}
+		td {
+			padding: 7px 6px;
+			border-bottom: 1px solid #122918;
+			vertical-align: top;
+		}
+		tr:last-child td { border-bottom: none; }
+		.badge {
+			display: inline-block;
+			padding: 2px 8px;
+			border-radius: 20px;
+			font-size: 0.8em;
+			font-weight: bold;
+			white-space: nowrap;
+		}
+		.b-green  { background:#0a3d1a; color:#5dff8f; border:1px solid #2a7a3a; }
+		.b-blue   { background:#0a1f3d; color:#6ab4ff; border:1px solid #2a4a7a; }
+		.b-red    { background:#3d0a0a; color:#ff7070; border:1px solid #7a2a2a; }
+		.b-yellow { background:#2e2700; color:#f5c842; border:1px solid #6e5a00; }
+		.b-white  { background:#1a1a1a; color:#cccccc; border:1px solid #444;   }
+
+		.muted { color: #6a9b74; font-size: 0.8em; margin-top: 4px; }
+
+		/* ── Fade-in ── */
+		.fade { animation: fi 0.8s ease both; }
+		.fade2 { animation: fi 0.8s 0.3s ease both; }
+		.fade3 { animation: fi 0.8s 0.6s ease both; }
+		@keyframes fi { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+	</style>
+</head>
+<body>
+
+	<div class="plumbob-wrap fade">
+		<!--
+			Plumbob — hexagonal bipyramid (gem cut) from the front.
+			Centre (50,80). Equal height: top apex 68px above, bottom apex 68px below.
+			Girdle hex: UL(28,62) UR(72,62) R(82,80) LR(72,98) LL(28,98) L(18,80)
+			Girdle is rendered first; crown+pavilion faces sit on top and leave
+			the girdle strip (front quad + two side triangles) naturally exposed.
+		-->
+		<svg viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg">
+			<!-- 0 — girdle base (must be first so crown/pavilion render over it) -->
+			<polygon points="28,62 72,62 82,80 72,98 28,98 18,80" fill="#1ab84a"/>
+			<!-- 1-3 — crown (top apex to upper girdle edge) -->
+			<polygon points="50,12 28,62 72,62" fill="#55ff88"/><!-- front, brightest -->
+			<polygon points="50,12 72,62 82,80" fill="#22cc55"/><!-- right -->
+			<polygon points="50,12 18,80 28,62" fill="#33dd66"/><!-- left -->
+			<!-- 4-6 — pavilion (lower girdle edge to bottom apex) -->
+			<polygon points="50,148 72,98 28,98" fill="#00aa33"/><!-- front -->
+			<polygon points="50,148 82,80 72,98" fill="#008822"/><!-- right -->
+			<polygon points="50,148 28,98 18,80" fill="#007720"/><!-- left -->
+			<!-- girdle outline on top to make hex ring crisp -->
+			<polygon points="28,62 72,62 82,80 72,98 28,98 18,80"
+			         fill="none" stroke="#66ffaa" stroke-width="1" opacity="0.8"/>
+			<!-- crown highlight -->
+			<polygon points="50,12 58,38 50,32 42,38" fill="#ccffee" opacity="0.35"/>
+		</svg>
+	</div>
+
+	<h1 class="fade">Smart Plumbob</h1>
+	<h2 class="fade">Powered by WLED</h2>
+
+	<div class="panel fade2">
+		<div class="panel-title">Get Connected</div>
+		<a class="btn" href="./settings/wifi">&#9788; WiFi Settings</a>
+		<a class="btn secondary" href="./?sliders">&#9670; Go to Controls</a>
+	</div>
+
+	<div class="panel fade3">
+		<div class="panel-title">&#9670; Action Button Reference</div>
+		<table>
+			<tr>
+				<th>Press</th>
+				<th>Action</th>
+			</tr>
+			<tr>
+				<td><span class="badge b-white">1&times; short</span></td>
+				<td>Random colour change</td>
+			</tr>
+			<tr>
+				<td><span class="badge b-white">1&times; hold</span></td>
+				<td>Power on / off <span class="muted">(fires at 600 ms)</span></td>
+			</tr>
+			<tr>
+				<td><span class="badge b-green">3&times; short</span></td>
+				<td>Enable AP mode <span class="muted">(flashes green &times;2)</span></td>
+			</tr>
+			<tr>
+				<td><span class="badge b-blue">Hold 15 s</span></td>
+				<td>Factory reset <span class="muted">(flashes blue &times;2, fires on release)</span></td>
+			</tr>
+			<tr>
+				<td><span class="badge b-red">Hold 30 s</span></td>
+				<td>Download mode <span class="muted">(flashes red &times;2, keep holding through reboot)</span></td>
+			</tr>
+		</table>
+	</div>
+
+</body>
 </html>

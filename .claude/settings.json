@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pio run:*)",
+      "Bash(where pio:*)",
+      "Bash(where platformio:*)",
+      "Read(//d/gitRepos/github.com/wled/WLED/$USERPROFILE/.platformio/penv/Scripts/**)",
+      "Read(//d/gitRepos/github.com/wled/WLED/$HOME/.platformio/penv/Scripts/**)",
+      "Bash(\"$USERPROFILE/.platformio/penv/Scripts/pio.exe\" run:*)"
+    ]
+  }
+}
