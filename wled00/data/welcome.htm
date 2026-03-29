@@ -23,7 +23,6 @@
 		}
 		.plumbob-wrap svg {
 			width: 90px;
-			filter: drop-shadow(0 0 18px #00ff6688);
 		}
 		@keyframes bob {
 			0%,100% { transform: translateY(0);   filter: drop-shadow(0 0 18px #00ff6688); }
@@ -143,28 +142,33 @@
 
 	<div class="plumbob-wrap fade">
 		<!--
-			Plumbob — hexagonal bipyramid (gem cut) from the front.
-			Centre (50,80). Equal height: top apex 68px above, bottom apex 68px below.
-			Girdle hex: UL(28,62) UR(72,62) R(82,80) LR(72,98) LL(28,98) L(18,80)
-			Girdle is rendered first; crown+pavilion faces sit on top and leave
-			the girdle strip (front quad + two side triangles) naturally exposed.
+			Plumbob — 6 triangular facets meeting at a horizontal waist line.
+			viewBox 100×140. Waist at y=70 — exact midpoint of gem (5→135).
+			Top apex (50,5), bottom apex (50,135).
+			Left waist (8,70), right waist (92,70).
+			Inner waist points (32,70) and (68,70) divide crown into 3 facets
+			and pavilion into 3 facets. No hexagonal girdle band — faces meet
+			cleanly at the waist so the shape reads as a proper 3-D gem.
 		-->
-		<svg viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg">
-			<!-- 0 — girdle base (must be first so crown/pavilion render over it) -->
-			<polygon points="28,62 72,62 82,80 72,98 28,98 18,80" fill="#1ab84a"/>
-			<!-- 1-3 — crown (top apex to upper girdle edge) -->
-			<polygon points="50,12 28,62 72,62" fill="#55ff88"/><!-- front, brightest -->
-			<polygon points="50,12 72,62 82,80" fill="#22cc55"/><!-- right -->
-			<polygon points="50,12 18,80 28,62" fill="#33dd66"/><!-- left -->
-			<!-- 4-6 — pavilion (lower girdle edge to bottom apex) -->
-			<polygon points="50,148 72,98 28,98" fill="#00aa33"/><!-- front -->
-			<polygon points="50,148 82,80 72,98" fill="#008822"/><!-- right -->
-			<polygon points="50,148 28,98 18,80" fill="#007720"/><!-- left -->
-			<!-- girdle outline on top to make hex ring crisp -->
-			<polygon points="28,62 72,62 82,80 72,98 28,98 18,80"
-			         fill="none" stroke="#66ffaa" stroke-width="1" opacity="0.8"/>
-			<!-- crown highlight -->
-			<polygon points="50,12 58,38 50,32 42,38" fill="#ccffee" opacity="0.35"/>
+		<svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+			<!-- crown: 3 facets. Waist at y=70 — exact midpoint of 5→135 gem -->
+			<polygon points="50,5 32,70 68,70"  fill="#55ff88"/><!-- centre – brightest -->
+			<polygon points="50,5 8,70 32,70"   fill="#2ecc66"/><!-- left -->
+			<polygon points="50,5 68,70 92,70"  fill="#28bb5a"/><!-- right -->
+			<!-- pavilion: 3 facets -->
+			<polygon points="50,135 32,70 68,70" fill="#00aa33"/><!-- centre -->
+			<polygon points="50,135 8,70 32,70"  fill="#007a25"/><!-- left -->
+			<polygon points="50,135 68,70 92,70" fill="#006820"/><!-- right -->
+			<!-- waist (girdle) line — centre of gem -->
+			<line x1="8" y1="70" x2="92" y2="70" stroke="#66ffaa" stroke-width="1.2" opacity="0.9"/>
+			<!-- crown facet divider lines -->
+			<line x1="50" y1="5" x2="32" y2="70" stroke="#77ffaa" stroke-width="0.7" opacity="0.6"/>
+			<line x1="50" y1="5" x2="68" y2="70" stroke="#77ffaa" stroke-width="0.7" opacity="0.6"/>
+			<!-- pavilion facet divider lines -->
+			<line x1="50" y1="135" x2="32" y2="70" stroke="#33aa55" stroke-width="0.5" opacity="0.4"/>
+			<line x1="50" y1="135" x2="68" y2="70" stroke="#33aa55" stroke-width="0.5" opacity="0.4"/>
+			<!-- crown highlight sparkle -->
+			<polygon points="50,5 55,26 50,22 45,26" fill="white" opacity="0.45"/>
 		</svg>
 	</div>
 

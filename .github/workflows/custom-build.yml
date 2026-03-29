@@ -1,0 +1,61 @@
+name: SmartPlumbob Build
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  build:
+    name: Build ESP32_custom firmware
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Build web assets
+        run: |
+          npm ci
+          VERSION=`date +%y%m%d0`
+          sed -i -r -e "s/define VERSION .+/define VERSION $VERSION/" wled00/wled.h
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install PlatformIO
+        run: pip install -r requirements.txt
+
+      - name: Cache PlatformIO
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.platformio/.cache
+            ~/.buildcache
+            build_output
+          key: pio-${{ runner.os }}-ESP32_custom-${{ hashFiles('platformio.ini', 'platformio_override.ini', 'pio-scripts/output_bins.py') }}-${{ hashFiles('wled00/**') }}
+          restore-keys: pio-${{ runner.os }}-ESP32_custom-${{ hashFiles('platformio.ini', 'platformio_override.ini', 'pio-scripts/output_bins.py') }}-
+
+      - name: Build firmware
+        run: pio run -e ESP32_custom
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SmartPlumbob-firmware
+          path: build_output/release/*.bin
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build_output/release/*.bin
